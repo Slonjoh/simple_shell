@@ -13,7 +13,7 @@ It provides a simplified and intuitive way to interact with your computer, allow
 1. Clone this repository to your local machine using Git:
 
    shell
-   git clone https://github.com/yourusername/simple-shell.git
+   git clone https://github.com/Slonjoh/simple_shell.git
 
 2. Copy the simple-shell executable to a directory listed in your system's PATH environment variable, such as /usr/local/bin.
 
