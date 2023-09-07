@@ -25,6 +25,7 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 Using Simple Shell is straightforward. Just open a terminal and start typing commands.
 
 Your shell should work like this in interactive mode:
+```
 $ ./hsh
 ($) /bin/ls
 hsh main.c shell.c
