@@ -8,11 +8,12 @@
 #include <sys/wait.h>
 
 #define INPUT_LENGTH 1024
-
+#define MAX_ARGS 64
 
 
 void run_input(char *input);
 void run_tobonyshell(void);
+void process_arguments(char *input, char *args[], int *arg_count);
 
 #endif /*TOBONY_SHELL_H*/
 

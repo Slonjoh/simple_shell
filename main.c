@@ -9,7 +9,7 @@
 
 int main(void)
 {
-	run_tobonyshell(); /* Start the TobOnyshell main loop*/
+	run_tobonyshell();
 	return (0);
 }
 

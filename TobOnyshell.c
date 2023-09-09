@@ -17,9 +17,13 @@ void run_input(char *input)
 
 	if (pid == 0)
 	{
-		execlp(input, input, NULL);
-		perror("Invalid Command");
-		exit(1);
+		char *args[MAX_ARGS];
+		 int arg_count = 0;
+
+		 process_arguments(input, args, &arg_count);
+		 execvp(args[0], args);
+		 perror("Invalid Command");
+		 exit(1);
 	}
 	wait(0);
 }
