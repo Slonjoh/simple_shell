@@ -22,7 +22,14 @@ void run_tobonyshell(void)
 
 		if (strlen(input) > 0)
 		{
+			if (strcmp(input, "exit") == 0)
+			{
+				 exit_tobonyshell();
+			}
+			else
+			{
 			run_input(input);
+			}
 		}
 	}
 }
