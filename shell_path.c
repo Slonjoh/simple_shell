@@ -7,6 +7,7 @@
  * Return: a copy of the path
  */
 
+
 char *find_executable(char *command)
 {
 	char *path = getenv("PATH");
