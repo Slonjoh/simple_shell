@@ -20,19 +20,22 @@ char *find_executable(char *command)
 		while (token)
 		{
 			char full_path[INPUT_LENGTH];
+
 			snprintf(full_path, sizeof(full_path), "%s/%s", token, command);
 
 			if (access(full_path, X_OK) == 0)
 			{
-				char *executable = strdup(full_path);
+				char *executable;
+
+				executable = strdup(full_path);
 				free(path_copy);
-				return executable;
+				return (executable);
 			}
 			token = strtok(NULL, ":");
 		}
 		free(path_copy);
 	}
-	return NULL;
+	return (NULL);
 }
 
 /**
@@ -61,7 +64,7 @@ void execute_command(char *executable, char *args[])
 		}
 		else
 			wait(NULL);
-        }
+	}
 	else
 		printf("Command not found: %s\n", args[0]);
 }

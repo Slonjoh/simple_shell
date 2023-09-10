@@ -17,5 +17,7 @@ void process_arguments(char *input, char *args[], int *arg_count);
 char *find_executable(char *command);
 void execute_command(char *executable, char *args[]);
 void exit_tobonyshell(void);
+extern char **environ;
+void build_env(void);
 
 #endif /*TOBONY_SHELL_H*/

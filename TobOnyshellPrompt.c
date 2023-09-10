@@ -24,7 +24,11 @@ void run_tobonyshell(void)
 		{
 			if (strcmp(input, "exit") == 0)
 			{
-				 exit_tobonyshell();
+				exit_tobonyshell();
+			}
+			else if (strcmp(input, "env") == 0)
+			{
+				build_env();
 			}
 			else
 			{
