@@ -3,13 +3,13 @@
 #define BUFFER_SIZE 1024
 
 static char buffer[BUFFER_SIZE];
-static int position = 0;
-static int size = 0;
+static int position;
+static int size;
 
 /**
  * rm_buffer - Delete the input buffer.
  */
-static void rm_buffer(void)
+void rm_buffer(void)
 {
 	position = 0;
 	size = 0;
@@ -22,7 +22,7 @@ static void rm_buffer(void)
  * Return: Next character read from the input.
  * EOF if the end of the input is reached.
  */
-static char read_only(void)
+char read_only(void)
 {
 	if (position >= size)
 	{
@@ -46,7 +46,7 @@ static char read_only(void)
  * Return: Pointer to the allocated memory.
  * NULL if memory allocation fails.
  */
-static char *assign_line(int len)
+char *assign_line(int len)
 {
 	char *line;
 
@@ -66,7 +66,7 @@ static char *assign_line(int len)
  *
  * Return: Allocated string containing the line.
  */
-static char *form_line(int line_len)
+char *form_line(int line_len)
 {
 	char *line;
 
@@ -74,23 +74,6 @@ static char *form_line(int line_len)
 	strncpy(line, buffer, line_len);
 	line[line_len] = '\0';
 	return (line);
-}
-
-/**
- * handle_EOL - Handle end of line.
- *
- * @line_len: Length of the line.
- *
- * Return: Allocated string containing the line.
- * NULL if the line length is zero.
- */
-static char *handle_EOL(int line_len)
-{
-	if (line_len == 0)
-	{
-		return (NULL);
-	}
-	return (form_line(line_len));
 }
 
 /**
@@ -141,23 +124,4 @@ char *get_line(void)
 				line[line_len++] = c;
 		}
 	}
-}
-
-/**
- * main - Entry point of the program.
- *
- * Return: 0 Always.
- */
-
-int main(void)
-{
-	char *line;
-
-	while ((line = get_line()) != NULL)
-	{
-		printf("You entered: %s\n", line);
-		free(line);
-	}
-
-	return (0);
 }
