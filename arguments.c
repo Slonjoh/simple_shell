@@ -4,18 +4,25 @@
  * process_arguments - Process the input command into arguments.
  * @input: Input command string.
  * @args: Array to store the parsed arguments.
- * @arg_count: Pointer to an integer to store the number of arguments.
+ * @argument_count: Pointer to an integer to store the number of arguments.
  */
-void process_arguments(char *input, char *args[], int *arg_count)
+void process_arguments(char *input, char *args[], int *argument_count)
 {
-	char *token = strtok(input, " ");
+	char *token;
+	char *rest = input;
 
-	for (*arg_count = 0; token != NULL && *arg_count <
-			MAX_ARGS - 1; (*arg_count)++)
+	*argument_count = 0;
+
+	for (; *argument_count < MAX_ARGS - 1;)
 	{
-		args[*arg_count] = token;
-		token = strtok(NULL, " ");
+		token = strtok_r(rest, " ", &rest);
+
+		if (token == NULL)
+		{
+			break;
+		}
+		args[(*argument_count)++] = token;
 	}
 
-	args[*arg_count] = NULL;
+	args[*argument_count] = NULL;
 }
