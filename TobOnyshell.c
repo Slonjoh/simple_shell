@@ -21,9 +21,20 @@ void run_input(char *input)
 		 int arg_count = 0;
 
 		 process_arguments(input, args, &arg_count);
-		 execvp(args[0], args);
-		 perror("Invalid Command");
-		 exit(1);
+
+	if (strcmp(args[0], "exit") == 0)
+	{
+		int exit_status = 0;
+
+		if (arg_count > 1)
+		{
+			exit_status = atoi(args[1]);
+		}
+		exit_tobonyshell(exit_status);
+	}
+	execvp(args[0], args);
+	perror("Invalid Command");
+	exit(1);
 	}
 	wait(0);
 }

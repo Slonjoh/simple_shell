@@ -10,7 +10,7 @@ void run_tobonyshell(void)
 
 	for (;;)
 	{
-		printf("TobOnyshell$ ");
+		printf("TobOnyshell# ");
 
 		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
@@ -24,7 +24,16 @@ void run_tobonyshell(void)
 		{
 			if (strcmp(input, "exit") == 0)
 			{
-				exit_tobonyshell();
+				exit_tobonyshell(0);
+			}
+			else if (strncmp(input, "exit ", 5) == 0)
+			{
+				int status;
+
+				if (sscanf(input + 5, "%d", &status) == 1)
+				{
+					exit_tobonyshell(status);
+				}
 			}
 			else if (strcmp(input, "env") == 0)
 			{

@@ -11,8 +11,8 @@
 
 int main(void)
 {
-
-	/*char *line;
+	/*
+	*char *line;
 
 	while (1)
 	{
@@ -30,7 +30,8 @@ int main(void)
 			 break;
 		 }
 		 free(line);
-	}*/
+	}
+	*/
 	run_tobonyshell();
 	return (0);
 }
