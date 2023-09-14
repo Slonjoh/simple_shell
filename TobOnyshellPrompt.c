@@ -10,7 +10,7 @@ void run_tobonyshell(void)
 
 	for (;;)
 	{
-		printf("TobOnyshell> ");
+		printf("TobOnyshell$ ");
 
 		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
