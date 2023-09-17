@@ -44,5 +44,6 @@ void run_tobonyshell(void)
 			run_input(input);
 			}
 		}
+		execute_commands(input);
 	}
 }
