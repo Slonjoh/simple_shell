@@ -45,5 +45,9 @@ void run_tobonyshell(void)
 			}
 		}
 		execute_commands(input);
+
+		/* Execute multiple commands separated by operators */
+		int status = execute__commands(input);
+		printf("Exit status: %d\n", status);
 	}
 }
