@@ -44,5 +44,8 @@ void run_tobonyshell(void)
 			run_input(input);
 			}
 		}
+		execute_commands(input);
+		int status = execute__commands(input);
+		printf("Exit status: %d\n", status);
 	}
 }
