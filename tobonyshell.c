@@ -14,13 +14,17 @@ void run_input(char *input)
 		perror("Fork Error");
 		exit(1);
 	}
-
 	if (pid == 0)
 	{
 		char *args[MAX_ARGS];
 		int arg_count = 0;
 		char **env;
 
+		if (input == NULL || strspn(input, " \t\n\r") == strlen(input))
+		{
+			printf("Invalid Command: Empty input\n");
+			exit(2);
+		}
 		process_arguments(input, args, &arg_count);
 		env = customize_env();
 		execve(args[0], args, env);
