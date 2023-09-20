@@ -36,18 +36,14 @@ void run_tobonyshell(void)
 				}
 			}
 			else if (strcmp(input, "env") == 0)
-			{
 				build_env();
+			else if (strncmp(input, "alias ", 6) == 0)
+			{
+				process_arguments(input + 6, alias_args, &alias_arg_count);
+				handle_alias_command(alias_args, alias_arg_count);
 			}
 			else
-			{
-			run_input(input);
-			}
+				execute_commands(input);
 		}
-		execute_commands(input);
-
-		/* Execute multiple commands separated by operators */
-		int status = execute__commands(input);
-		printf("Exit status: %d\n", status);
 	}
 }

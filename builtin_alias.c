@@ -1,102 +1,108 @@
 #include "TobOnyshell.h"
 
 /**
- * execute_single_command - Function to execute a single command
- * @command: string command
- * Return: 0
+ * print_aliases - a function that prints all aliases
+ * @void: No parameter
+ * Return: void
  */
 
-int execute__single_command(char *command)
+Alias aliases[MAX_ALIAS_COUNT];
+int alias_count = 0;
+
+void print_aliases(void)
 {
-	int arg_count = 0;
-	char *args[MAX_ARGS];
-
-	/* Parse the command arguments */
-	process_arguments(command, args, &arg_count);
-
-	/* Check for built-in commands */
-	if (strcmp(args[0], "exit") == 0)
+	for (int i = 0; i < alias_count; i++)
 	{
-		int exit_status = (arg_count > 1) ? atoi(args[1]) : 0;
-		exit_tobonyshell(exit_status);
+		printf("%s='%s'\n", aliases[i].name, aliases[i].value);
 	}
-	else if (strcmp(args[0], "env") == 0)
-	{
-		build_env();
-		return (0);
-	}
-	else if (strcmp(args[0], "cd") == 0)
-	{
-		return build_cd(args, arg_count);
-	}
-	else
-	{
-		/* Execute non-built-in commands */
-		pid_t pid = fork();
-		if (pid == -1)
-		{
-			perror("Fork Error");
-			exit(1);
-		}
-		else if (pid == 0)
-		{
-			/* Child process */
-			execute_command(find_executable(args[0]), args);
-			exit(1);
-			/* If execute_command fails, exit the child process */
-		}
-		else
-		{
-			/* Parent process */
-			int status;
-			wait(&status); /* Wait for the child process to finish*/
-			return WEXITSTATUS(status);
-		}
-	}
-	return (0);
 }
 
 /**
- * execute_commands - Function to execute multiple 
- * commands separated by operators
- * @input: string
- * Return: status
+ * find_alias_index - a function to find the index of an alias by name
+ * @name: string parameter
+ * Return: number of index or -1
  */
 
-int execute__commands(char *input)
+int find_alias_index(char *name)
 {
-	/* Split input into separate commands using operators && and || */
-	char *token = strtok(input, "&|");
-	int status = 0;
-
-	while (token != NULL)
+	for (int i = 0; i < alias_count; i++)
 	{
-		/* Trim leading and trailing whitespaces */
-		char *command = strtok(token, " \t");
-
-		if (command != NULL)
+		if (strcmp(aliases[i].name, name) == 0)
 		{
-			int execute_command = 1;
+			return (i);
+		}
+	}
+	return (-1);
+}
 
-			if (strcmp(token, "&&") == 0)
+/**
+ * create_alias - a function to create or update an alias
+ * @name: string parameter
+ * @value: string parameter
+ * Return: void
+ */
+
+void create_alias(char *name, char *value)
+{
+	int index = find_alias_index(name);
+
+	if (index != -1)
+	{
+		/* Update existing alias */
+		free(aliases[index].value);
+		aliases[index].value = strdup(value);
+	}
+	else if (alias_count < MAX_ALIAS_COUNT)
+	{
+		/* Create a new alias */
+		aliases[alias_count].name = strdup(name);
+		aliases[alias_count].value = strdup(value);
+		alias_count++;
+	}
+	else
+	{
+		printf("Alias limit reached. Cannot create more aliases.\n");
+	}
+}
+
+/**
+ * handle_alias_command - a function to handle the alias built-in command
+ * @args: string of chars
+ * @argument_count: int parameter
+ * Return: 0
+ */
+
+int handle_alias_command(char *args[], int argument_count)
+{
+	if (argument_count == 1)
+	{
+		/* Print all aliases */
+		print_aliases();
+	}
+	else if (argument_count > 1)
+	{
+		for (int i = 1; i < argument_count; i++)
+		{
+			char *arg = args[i];
+			char *equal_sign = strchr(arg, '=');
+
+			if (equal_sign != NULL)
 			{
-				execute_command = (status == 0);
-			}
-			else if (strcmp(token, "||") == 0)
-			{
-				execute_command = (status != 0);
+				/* Define or update an alias (e.g., alias name='value') */
+				*equal_sign = '\0'; /* Separate name and value */
+				create_alias(arg, equal_sign + 1);
 			}
 			else
 			{
-				status = execute__single_command(token);
-			}
-			if (execute_command)
-			{
-				status = execute__single_command(command);
+				/*  Print the alias (e.g., alias name) */
+				int index = find_alias_index(arg);
+
+				if (index != -1)
+				{
+					printf("%s='%s'\n", aliases[index].name, aliases[index].value);
+				}
 			}
 		}
-		/* Get the next command separated by operators */
-		token = strtok(NULL, "&|");
 	}
-	return (status);
+	return (0);
 }
