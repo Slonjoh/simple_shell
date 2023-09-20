@@ -12,6 +12,7 @@
 
 
 void run_input(char *input);
+char **customize_env();
 void run_tobonyshell(void);
 void process_arguments(char *input, char *args[], int *argument_count);
 char *find_executable(char *command);
