@@ -9,40 +9,37 @@ void run_tobonyshell(void)
 	char input[INPUT_LENGTH];
 	int status;
 
-	while (1)
+	if (isatty(STDIN_FILENO))
 	{
-		printf("$ ");
-
-		if (fgets(input, sizeof(input), stdin) == NULL)
+		while (1)
 		{
-			printf("\n");
-			break;
+			printf("$ ");
+			if
+				(!fgets(input, sizeof(input), stdin)) break;
+			input[strcspn(input, "\n")] = '\0';
+
+			if (strlen(input) > 0)
+			{
+				if
+					(!strcmp(input, "exit")) exit_tobonyshell(0);
+				else if
+					(!strncmp(input, "exit ", 5) && sscanf(input + 5, "%d", &status) == 1)
+						exit_tobonyshell(status);
+				else if
+					(!strcmp(input, "env")) build_env();
+				else
+					run_input(input);
+			}
 		}
-
-		input[strcspn(input, "\n")] = '\0';
-
-		if (strlen(input) > 0)
+	}
+	else
+	{
+		while (fgets(input, sizeof(input), stdin))
 		{
-			if (strcmp(input, "exit") == 0)
-			{
-				exit_tobonyshell(0);
-			}
-			else if (strncmp(input, "exit ", 5) == 0)
-			{
+			input[strcspn(input, "\n")] = '\0';
 
-				if (sscanf(input + 5, "%d", &status) == 1)
-				{
-					exit_tobonyshell(status);
-				}
-			}
-			else if (strcmp(input, "env") == 0)
-			{
-				build_env();
-			}
-			else
-			{
-			run_input(input);
-			}
+			if
+				(strlen(input) > 0) run_input(input);
 		}
 	}
 }
