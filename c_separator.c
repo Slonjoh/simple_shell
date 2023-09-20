@@ -35,7 +35,7 @@ bool execute_single_command(char *command)
 		{
 			/* Child process*/
 			execute_command(find_executable(args[0]), args);
-			exit(1); /* If execute_command fails, exit the child process*/
+			exit(1);
 		}
 		else
 		{
