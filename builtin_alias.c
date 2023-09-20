@@ -6,11 +6,11 @@
  * Return: void
  */
 
-Alias aliases[MAX_ALIAS_COUNT];
-int alias_count = 0;
-
 void print_aliases(void)
 {
+	Alias aliases[MAX_ALIAS_COUNT];
+	int alias_count = 0;
+
 	for (int i = 0; i < alias_count; i++)
 	{
 		printf("%s='%s'\n", aliases[i].name, aliases[i].value);
@@ -25,6 +25,9 @@ void print_aliases(void)
 
 int find_alias_index(char *name)
 {
+	Alias aliases[MAX_ALIAS_COUNT];
+	int alias_count = 0;
+
 	for (int i = 0; i < alias_count; i++)
 	{
 		if (strcmp(aliases[i].name, name) == 0)
@@ -44,6 +47,8 @@ int find_alias_index(char *name)
 
 void create_alias(char *name, char *value)
 {
+	Alias aliases[MAX_ALIAS_COUNT];
+	int alias_count = 0;
 	int index = find_alias_index(name);
 
 	if (index != -1)
