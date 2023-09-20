@@ -8,20 +8,35 @@
  */
 void process_arguments(char *input, char *args[], int *argument_count)
 {
-	char *token;
-	char *rest = input;
+	char *start_token = NULL;
+	int token_door = 0;
+	int i;
 
 	*argument_count = 0;
 
-	for (; *argument_count < MAX_ARGS - 1;)
+	for (i = 0; input[i] != '\0' && *argument_count < MAX_ARGS - 1; i++)
 	{
-		token = strtok_r(rest, " ", &rest);
-
-		if (token == NULL)
+		if (input[i] == ' ' || input[i] == '\n')
 		{
-			break;
+			if (token_door)
+			{
+				input[i] = '\0';
+				args[(*argument_count)++] = start_token;
+				token_door = 0;
+			}
 		}
-		args[(*argument_count)++] = token;
+		else
+		{
+			if (!token_door)
+			{
+				start_token = &input[i];
+				token_door = 1;
+			}
+		}
+	}
+	if (token_door)
+	{
+		args[(*argument_count)++] = start_token;
 	}
 
 	args[*argument_count] = NULL;
