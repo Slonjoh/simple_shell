@@ -47,24 +47,44 @@ char *find_executable(char *command)
 
 void execute_command(char *executable, char *args[])
 {
+	int exit_status = 0;
+
 	if (executable)
 	{
-		pid_t pid = fork();
-
-		if (pid == -1)
+		if (strcmp(args[0], "exit") == 0)
 		{
-			perror("Fork Error");
-			exit(1);
-		}
-		if (pid == 0)
-		{
-			execv(executable, args);
-			perror("Execution Error");
-			exit(1);
+			if (args[1] != NULL)
+				exit_status = atoi(args[1]);
+			exit_tobonyshell(exit_status);
 		}
 		else
-			wait(NULL);
+		{
+			pid_t pid = fork();
+
+			if (pid == -1)
+			{
+				perror("Fork Error");
+				exit(1);
+			}
+			if (pid == 0)
+			{
+				execv(executable, args);
+				perror("Execution Error");
+				exit(1);
+			}
+			else
+			{
+				int status;
+
+				waitpid(pid, &status, 0);
+				if (WIFEXITED(status))
+					exit_status = WEXITSTATUS(status);
+			}
+		}
 	}
 	else
+	{
 		perror(args[0]);
+	}
+	exit(exit_status);
 }
