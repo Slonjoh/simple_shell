@@ -21,9 +21,20 @@ void run_input(char *input)
 		 int arg_count = 0;
 
 		 process_arguments(input, args, &arg_count);
-
-	if (strcmp(args[0], "exit") == 0)
+		 execute_command(args[0], args);
+		 exit(1);
+	}
+	else
 	{
+		int status;
+
+		waitpid(pid, &status, 0);
+	}
+}
+
+	/*
+	 * if (strcmp(args[0], "exit") == 0)
+	 {
 		int exit_status = 0;
 
 		if (arg_count > 1)
@@ -38,3 +49,4 @@ void run_input(char *input)
 	}
 	wait(0);
 }
+*/
