@@ -27,9 +27,5 @@ int process_commands(char *args[], int argument_count);
 int cd_home(void);
 int cd_pwd(void);
 int build_cd(char *args[], int argument_count);
-void execute_single_command(char *command);
-void execute_commands(char *input);
-int execute__commands(char *input);
-int execute__single_command(char *command);
 
 #endif /*TOBONY_SHELL_H*/
