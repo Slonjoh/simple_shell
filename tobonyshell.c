@@ -22,7 +22,6 @@ void run_input(char *input)
 
 		if (input == NULL || strspn(input, " \t\n\r") == strlen(input))
 		{
-			printf("Invalid Command: Empty input\n");
 			exit(2);
 		}
 		process_arguments(input, args, &arg_count);
