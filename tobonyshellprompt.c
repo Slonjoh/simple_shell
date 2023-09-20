@@ -10,7 +10,7 @@ void run_tobonyshell(void)
 
 	for (;;)
 	{
-		printf("");
+		printf("#cisfun$ ");
 
 		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
