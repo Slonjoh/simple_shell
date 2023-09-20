@@ -29,7 +29,6 @@ void run_input(char *input)
 		int status;
 
 		waitpid(pid, &status, 0);
-		printf("\n");
 	}
 }
 
