@@ -9,6 +9,10 @@ void run_input(char *input)
 {
 	int pid = fork();
 
+	if (input == NULL || strspn(input, " \t\n\r") == strlen(input))
+	{
+		exit(2);
+	}
 	if (pid == -1)
 	{
 		perror("Fork Error");
@@ -20,10 +24,6 @@ void run_input(char *input)
 		int arg_count = 0;
 		char **env;
 
-		if (input == NULL || strspn(input, " \t\n\r") == strlen(input))
-		{
-			exit(2);
-		}
 		process_arguments(input, args, &arg_count);
 		env = customize_env();
 		execve(args[0], args, env);
@@ -35,6 +35,10 @@ void run_input(char *input)
 		int status;
 
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			exit(WEXITSTATUS(status));
+		}
 	}
 }
 

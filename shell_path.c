@@ -66,5 +66,5 @@ void execute_command(char *executable, char *args[])
 			wait(NULL);
 	}
 	else
-		printf("Command not found: %s\n", args[0]);
+		perror(args[0]);
 }
