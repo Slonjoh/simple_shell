@@ -9,7 +9,7 @@ void run_tobonyshell(void)
 	char input[INPUT_LENGTH];
 	int status;
 
-	while(1)
+	while (1)
 	{
 		printf("$ ");
 
