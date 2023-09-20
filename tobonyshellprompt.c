@@ -7,8 +7,9 @@
 void run_tobonyshell(void)
 {
 	char input[INPUT_LENGTH];
+	int status;
 
-	for (;;)
+	while(1)
 	{
 		printf("$ ");
 
@@ -28,7 +29,6 @@ void run_tobonyshell(void)
 			}
 			else if (strncmp(input, "exit ", 5) == 0)
 			{
-				int status;
 
 				if (sscanf(input + 5, "%d", &status) == 1)
 				{
