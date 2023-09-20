@@ -36,14 +36,13 @@ void run_tobonyshell(void)
 				}
 			}
 			else if (strcmp(input, "env") == 0)
-				build_env();
-			else if (strncmp(input, "alias ", 6) == 0)
 			{
-				process_arguments(input + 6, alias_args, &alias_arg_count);
-				handle_alias_command(alias_args, alias_arg_count);
+				build_env();
 			}
 			else
-				execute_commands(input);
+			{
+			run_input(input);
+			}
 		}
 	}
 }
