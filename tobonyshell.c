@@ -9,6 +9,11 @@ void run_input(char *input)
 {
 	int pid = fork();
 
+	if (strcmp(input, "exit") == 0)
+	{
+		exit_tobonyshell(0);
+		return;
+	}
 	if (pid == -1)
 	{
 		perror("Fork Error");
@@ -23,12 +28,12 @@ void run_input(char *input)
 
 		if (input == NULL || strspn(input, " \t\n\r") == strlen(input))
 		{
-			exit(0);
+			exit(2);
 		}
 		process_arguments(input, args, &arg_count);
 		env = customize_env();
 		execve(args[0], args, env);
-		perror("Invalid Command");
+		perror(args[0]);
 		exit(1);
 	}
 	else

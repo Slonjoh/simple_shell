@@ -67,8 +67,10 @@ void execute_command(char *executable, char *args[])
 			}
 			if (pid == 0)
 			{
-				execvp(executable, args);
-				exit(1);
+				execv(executable, args);
+				perror(args[0]);
+				exit_status = 2;
+				exit(2);
 			}
 			else
 			{
@@ -80,9 +82,9 @@ void execute_command(char *executable, char *args[])
 			}
 		}
 	}
-	if (strcmp(args[0], "exit") != 0 && strcmp(args[0], "exit_tobonyshell") != 0)
-	{
-		exit_status = 127;
-	}
-	exit(exit_status);
+	if (strcmp(args[0], "exit") != 0 &&
+			strcmp(args[0], "exit_tobonyshell") != 0)
+		exit(exit_status);
+	else
+	exit_status = 0;
 }
