@@ -96,6 +96,7 @@ char *get_line(void)
 		switch (c)
 		{
 			case EOF:
+				free(line);
 				return (handle_EOL(line_len));
 			case '\n':
 			case '\r':
