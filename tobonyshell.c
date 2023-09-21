@@ -23,7 +23,7 @@ void run_input(char *input)
 
 		if (input == NULL || strspn(input, " \t\n\r") == strlen(input))
 		{
-			exit(2);
+			exit(0);
 		}
 		process_arguments(input, args, &arg_count);
 		env = customize_env();
