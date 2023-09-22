@@ -16,7 +16,7 @@ int main(void)
 
 	while (1)
 	{
-		 fflush(stdout);
+		 fflush(stdout)
 
 		 line = get_line();
 
