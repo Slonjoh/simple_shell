@@ -52,39 +52,39 @@ void execute_command(char *executable, char *args[])
 }
 
 /**
- * find_executable -  function is responsible for searching for the
+ * get_command -  function is responsible for searching for the
  * executable file in the PATH and returning the full path if found.
- * @command: a string
+ * @execute: a string
  * Return: a copy of the path
  */
 
 
 char *get_command(char *execute)
 {
-        char *path = getenv("PATH");
+	char *path = getenv("PATH");
 
-        if (path)
-        {
-                char *path_copy = strdup(path);
-                char *token = strtok(path_copy, ":");
+	if (path)
+	{
+		char *path_copy = strdup(path);
+		char *token = strtok(path_copy, ":");
 
-                while (token)
-                {
-                        char full_path[INPUT_LENGTH];
+		while (token)
+		{
+			char full_path[INPUT_LENGTH];
 
-                        snprintf(full_path, sizeof(full_path), "%s/%s", token, execute);
+			snprintf(full_path, sizeof(full_path), "%s/%s", token, execute);
 
-                        if (access(full_path, X_OK) == 0)
-                        {
-                                char *executable;
+			if (access(full_path, X_OK) == 0)
+			{
+				char *executable;
 
-                                executable = strdup(full_path);
-                                free(path_copy);
-                                return (executable);
-                        }
-                        token = strtok(NULL, ":");
-                }
-                free(path_copy);
-        }
-        return (NULL);
+				executable = strdup(full_path);
+				free(path_copy);
+				return (executable);
+			}
+			token = strtok(NULL, ":");
+		}
+		free(path_copy);
+	}
+	return (NULL);
 }
