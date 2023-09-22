@@ -1,22 +1,22 @@
 #include "tobonyshell.h"
 
 /**
- * execute_command - a function that handles the actual execution of
+ * execute_command - Function that handles the actual execution of
  * the command and checks if the executable is found before forking.
- * @executable: string executable
- * @args: args parameter
+ * @executable: String executable
+ * @args: argument
  */
 
 void execute_command(char *executable, char *args[])
 {
-	int exit_status = 0;
-
 	if (executable)
 	{
 		if (strcmp(args[0], "exit") == 0)
 		{
 			if (args[1] != NULL)
-				exit_status = atoi(args[1]);
+				exit(atoi(args[1]));
+			else
+				exit(0);
 		}
 		else
 		{
@@ -31,7 +31,6 @@ void execute_command(char *executable, char *args[])
 			{
 				execv(executable, args);
 				perror(args[0]);
-				exit_status = 2;
 				exit(2);
 			}
 			else
@@ -40,22 +39,20 @@ void execute_command(char *executable, char *args[])
 
 				waitpid(pid, &status, 0);
 				if (WIFEXITED(status))
-					exit_status = WEXITSTATUS(status);
+					exit(WEXITSTATUS(status));
 			}
 		}
 	}
-	if (strcmp(args[0], "exit") != 0 &&
+	else if (strcmp(args[0], "exit") != 0 &&
 			strcmp(args[0], "exit_tobonyshell") != 0)
-		exit(exit_status);
-	else
-	exit_status = 0;
+		exit(0);
 }
 
 /**
- * get_command -  function is responsible for searching for the
+ * get_command -  Function is responsible for searching for the
  * executable file in the PATH and returning the full path if found.
- * @execute: a string
- * Return: a copy of the path
+ * @execute: String
+ * Return: Copy of the path
  */
 
 
