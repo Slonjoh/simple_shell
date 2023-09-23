@@ -12,10 +12,9 @@
 
 
 void run_input(char *input);
-char **customize_env();
 void run_tobonyshell(void);
 void process_arguments(char *input, char *args[], int *argument_count);
-char *get_command(char *execute);
+char *find_executable(char *command);
 void execute_command(char *executable, char *args[]);
 void exit_tobonyshell(int status);
 extern char **environ;
