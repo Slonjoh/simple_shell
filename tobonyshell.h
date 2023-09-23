@@ -6,10 +6,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 
 #define INPUT_LENGTH 1024
 #define MAX_ARGS 64
-
 
 void run_input(char *input);
 char **customize_env();
@@ -28,5 +28,9 @@ int process_commands(char *args[], int argument_count);
 int cd_home(void);
 int cd_pwd(void);
 int build_cd(char *args[], int argument_count);
+void execute_commands(char *input);
+void execute_all_commands(char *input);
+void execute_single_command(char *command);
+bool execute_one_command(char *command);
 
 #endif /*TOBONY_SHELL_H*/
