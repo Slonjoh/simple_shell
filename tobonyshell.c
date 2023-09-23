@@ -14,6 +14,13 @@ void run_input(char *input)
 		exit_tobonyshell(0);
 		return;
 	}
+	else if (strncmp(input, "exit ", 5) == 0)
+	{
+		int exit_status = atoi(input + 5);
+
+		exit_tobonyshell(exit_status);
+		return;
+	}
 	if (pid == -1)
 	{
 		perror("Fork Error");
@@ -27,14 +34,12 @@ void run_input(char *input)
 
 
 		if (input == NULL || strspn(input, " \t\n\r") == strlen(input))
-		{
 			exit(2);
-		}
 		process_arguments(input, args, &arg_count);
 		env = customize_env();
 		execve(args[0], args, env);
 		perror(args[0]);
-		exit(1);
+		exit_tobonyshell(atoi(input + 5));
 	}
 	else
 	{
