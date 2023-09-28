@@ -15,10 +15,9 @@ It provides a simplified and intuitive way to interact with your computer, allow
    shell
    git clone https://github.com/Slonjoh/simple_shell.git
 
-2. Copy the simple-shell executable to a directory listed in your system's PATH environment variable, such as /usr/local/bin.
 
 
-3. Your shell will be compiled this way:
+2. Your shell will be compiled this way:
 00
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
@@ -31,6 +30,21 @@ $ ./hsh
 hsh main.c shell.c
 ($)
 ($) exit
+$
+
+Also in non-interactive like this
+
+$ echo "/bin/ls" | ./hsh
+hsh main.c shell.c test_ls_2
+$
+$ cat test_ls_2
+/bin/ls
+/bin/ls
+$
+
+$ cat test_ls_2 | ./hsh
+hsh main.c shell.c test_ls_2
+hsh main.c shell.c test_ls_2
 $
 
 ## Files
